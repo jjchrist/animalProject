@@ -1,0 +1,5 @@
+1  family: equine	name: horse	age: 3 y.o 	  species: percheron	colour: white		height (in metres): 1.89
+2  family: canines	name: wolf	age: 56 y.o 	  place: forest		level of danger: 3
+3  family: cetacea	name: whale	age: 5 y.o 	  place: jj		size (in metres): 3
+4  family: canines	name: ddd	age: 5 y.o 	  place: h		level of danger: 5
+5  family: canines	name: qq	age: 6 y.o 	  place: k		level of danger: 1

@@ -1,22 +1,13 @@
 #include "zoo.h"
 
-std::string unknownString()
+std::string enterString()
 {
 	std::string line;
 	std::cin.ignore();
 	getline(std::cin, line);
-	if (line == "-")
-		return "-";
-	else 
-		return line;
+	return line;
 }
 
-std::string enterName()
-{
-	std::cout << "Enter the name: ";
-	std::string name = unknownString();
-	return name;
-}
 int enterAge()
 {
 	int age;
@@ -27,10 +18,11 @@ int enterAge()
 
 void Zoo::addCanines()
 {
-	std::string name = enterName();
+	std::cout << "\nEnter the name: ";
+	std::string name = enterString();
 	int age = enterAge();
 	std::cout << "Enter the habitat: ";
-	std::string place = unknownString();
+	std::string place = enterString();
 	std::cout << "Enter the level of danger (1-10): ";
 	int dangerLevel;
 	std::cin >> dangerLevel;
@@ -39,26 +31,28 @@ void Zoo::addCanines()
 }
 void Zoo::addEquine()
 {
-	std::string name = enterName();
+	std::cout << "\nEnter the name: ";
+	std::string name = enterString();
 	int age = enterAge();
 	double height;
 	std::cout << "Enter the species: ";
-	std::string species = unknownString();
+	std::string species = enterString();
 	std::cout << "Enter the height (in metres): ";
 	std::cin >> height;
 	std::cout << "Enter the colour: ";
-	std::string colour = unknownString();
+	std::string colour = enterString();
 
 	Equine* eq = new Equine(name, age, species, colour, height);
 	zoo.push_back(eq);
 }
 void Zoo::addCetacea()
 {
-	std::string name = enterName();
+	std::cout << "\nEnter the name: ";
+	std::string name = enterString();
 	int age = enterAge();
 	double size = 0;
 	std::cout << "Enter the habitat: ";
-	std::string cetaplace = unknownString();
+	std::string cetaplace = enterString();
 	std::cout << "Enter the size (in metres): ";
 	std::cin >> size;
 	Cetacea* ceta = new Cetacea(name, age, cetaplace, size);
@@ -88,7 +82,7 @@ void Zoo::addAnimal()
 			break;
 		case 4:
 		{
-			std::string name = enterName();
+			std::string name = enterString();
 			int age = enterAge();
 			Animals* animal = new Animals(name, age);
 			zoo.push_back(animal);

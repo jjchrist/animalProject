@@ -18,9 +18,9 @@ public:
 	void addEquine();
 	void addCetacea();
 	void del();
-	void deleteZoo(); // удаление всех животных
-	void deleteAnimal(std::string family); // удаление по типу
-	void delAnimal(); // удаление по ID
+	void deleteZoo(); // СѓРґР°Р»РµРЅРёРµ РІСЃРµС… Р¶РёРІРѕС‚РЅС‹С…
+	void deleteAnimal(std::string family); // СѓРґР°Р»РµРЅРёРµ РїРѕ С‚РёРїСѓ
+	void delAnimal(); // СѓРґР°Р»РµРЅРёРµ РїРѕ ID
 	void editByFamily(std::string family, int id);
 	void edit();
 	void print();
@@ -29,7 +29,7 @@ public:
 	void menu();
 	void load();
 	void save();
-	//void sortByName();
-	//void sortByDanger();
-
+	void sort(std::vector <Animals*> &arr, int ch);
+	void sortBy();
 };
+

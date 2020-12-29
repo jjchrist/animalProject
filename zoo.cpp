@@ -7,7 +7,6 @@ std::string enterString()
 	getline(std::cin, line);
 	return line;
 }
-
 int enterAge()
 {
 	int age;
@@ -21,12 +20,12 @@ void Zoo::addCanines()
 	std::cout << "\nEnter the name: ";
 	std::string name = enterString();
 	int age = enterAge();
-	std::cout << "Enter the habitat: ";
-	std::string place = enterString();
+	std::cout << "Enter the food: ";
+	std::string food = enterString();
 	std::cout << "Enter the level of danger (1-10): ";
 	int dangerLevel;
 	std::cin >> dangerLevel;
-	Canines* can = new Canines(name, age, place, dangerLevel);
+	Canines* can = new Canines(name, age, food, dangerLevel);
 	zoo.push_back(can);
 }
 void Zoo::addEquine()
@@ -42,7 +41,7 @@ void Zoo::addEquine()
 	std::cout << "Enter the colour: ";
 	std::string colour = enterString();
 
-	Equine* eq = new Equine(name, age, species, colour, height);
+	Equine* eq = new Equine(name, age, species, height, colour);
 	zoo.push_back(eq);
 }
 void Zoo::addCetacea()
@@ -64,7 +63,7 @@ void Zoo::addAnimal()
 	int ch;
 	while (true)
 	{
-		std::cout << "Add: \n\t1 - to Canines\n\t2 - to Equines\n\t3 - to Cetacea\n\t4 - add animal without family\n\t0 - exit\n\nEnter: ";
+		std::cout << "Add: \n\t1 - to Canines\n\t2 - to Equines\n\t3 - to Cetacea\n\t0 - exit\n\nEnter: ";
 		std::cin >> ch;
 		switch (ch)
 		{
@@ -80,14 +79,6 @@ void Zoo::addAnimal()
 			addCetacea();
 			std::cout << "\nData was added\n";
 			break;
-		case 4:
-		{
-			std::string name = enterString();
-			int age = enterAge();
-			Animals* animal = new Animals(name, age);
-			zoo.push_back(animal);
-		}
-		break;
 		case 0:
 			return;
 		default:
@@ -116,7 +107,6 @@ void Zoo::deleteAnimal(std::string family)
 	}
 	std::cout << "\nData was deleted\n\n";
 }
-
 void Zoo::delAnimal()
 {
 	int id;
@@ -297,16 +287,16 @@ void Zoo::load()
 			file >> name;
 			std::getline(file, line, ':');
 			file >> age;
-			Animals* an = new Animals(name, age);	
+			Animals* an = new Animals(name, age);
 			if (family == "canines")
 			{
-				std::string place;
+				std::string food;
 				int danger;
 				std::getline(file, line, ':');
-				file >> place;
+				file >> food;
 				std::getline(file, line, ':');
 				file >> danger;
-				Canines* can = new Canines(name, age, place, danger);
+				Canines* can = new Canines(name, age, food, danger);
 				zoo.push_back(can);
 			}
 			if (family == "equine")
@@ -319,7 +309,7 @@ void Zoo::load()
 				file >> colour;
 				std::getline(file, line, ':');
 				file >> height;
-				Equine* eq = new Equine(name, age, species,colour, height);
+				Equine* eq = new Equine(name, age, species, height, colour);
 				zoo.push_back(eq);
 			}
 			if (family == "cetacea")
@@ -367,30 +357,50 @@ void Zoo::save()
 	}
 }
 
-//void Zoo::sortByName()
-//{
-//	std::sort(zoo.begin(), zoo.end());
-//	std::cout << "\n\nSorted\n\n";
-//}
+void Zoo::sort(std::vector <Animals*> &anim,  int ch)
+{
+	int size = anim.size();
+	for (auto start = 0; start < size; start++)
+	{
+		auto smallest = start;
+		{
+			for (auto cur = start + 1; cur < size; ++cur)
+			{
+				switch (ch)
+				{
+				case 1:
+					if (anim[cur]->getName() < anim[smallest]->getName())
+						smallest = cur;
+					break;
+				case 2:
+					if (anim[cur]->getAge() > anim[smallest]->getAge())
+						smallest = cur;
+					break;
+				case 0:
+					return;
+				default:
+					std::cout << "\nThe action wasn't chosen\n";
+				}
+			}
+			std::swap(anim[start], anim[smallest]);
+		}
+	}
+}
 
-//void Zoo::sortByDanger()
-//{
-//	for (auto i = 0; i < zoo.size(); i++)
-//	{
-//		if (zoo[i]->getFamily() == "canines")
-//		{
-//			zoo[i]->sort();
-//		}
-//		else i++;
-//	}
-//}
+void Zoo::sortBy()
+{
+	int ch;
+	std::cout << "\nSort by:\n\t1 - by name\n\t2 - by age\n\t0 - exit:\n";
+	std::cin >> ch;
+	sort(zoo, ch);
+}
 
 void Zoo::menu()
 {
 	int ch;
 	while (true) {
 	std::cout << "Choose the function:\n\t1 - print\n\t2 - add animal\n\t3 - delete\n\t4 - edit\n\t";
-	std::cout << "5 - load file\n\t6 - save to file\n\t7 - sort by name\n\t8 - sort by danger\n\t0 - end program\n\nEnter: ";
+	std::cout << "5 - load file\n\t6 - save to file\n\t7 - sort\n\t0 - end program\n\nEnter: ";
 		std::cin >> ch;
 		switch (ch)
 		{
@@ -412,12 +422,9 @@ void Zoo::menu()
 		case 6:
 			save();
 			break;
-		/*case 7:
-			sortByName();
+		case 7:
+			sortBy();
 			break;
-		case 8:
-			sortByDanger();
-			break;*/
 		case 0:
 			return;
 		default:
@@ -425,7 +432,3 @@ void Zoo::menu()
 		}
 	}
 }
-
-
-
-

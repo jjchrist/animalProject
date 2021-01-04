@@ -112,16 +112,6 @@ void Zoo::delAnimal()
 	int id;
 	std::cout << "Enter the ID of the animal you want to delete: ";
 	std::cin >> id;
-	/*for (std::vector<Animals*>::iterator animal = zoo.begin(); animal != zoo.end();)
-	{
-		if ((*animal) == zoo[id-1])
-		{
-			delete *animal;
-			animal = zoo.erase(animal);
-			break;
-		}
-		else ++animal;
-	}*/
 	delete zoo[id-1];
 	zoo.erase(zoo.begin() + id-1);
 	std::cout << "\nData was deleted\n\n";
